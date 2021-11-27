@@ -1,0 +1,36 @@
+Hws::Connectors::Hypto::VirtualAccount:
+  create:
+    method: post
+    path: /api/virtual_accounts
+  fetch:
+    method: get
+    path: /api/virtual_accounts/%{id}
+  update:
+    method: post
+    path: /api/virtual_accounts/%{id}/modify
+  activate:
+    method: post
+    path: /api/virtual_accounts/%{id}/activate
+  deactivate:
+    method: post
+    path: /api/virtual_accounts/%{id}/deactivate
+  send_to_bank_account:
+    method: post
+    path: /api/virtual_accounts/%{id}/transfer
+  send_to_upi_id:
+    method: post
+    path: /api/virtual_accounts/%{id}/transfer
+  status:
+    method: get
+    path: /api/virtual_accounts/%{id}/transfer/%{reference_number}
+
+Hws::Connectors::Hypto::Payout:
+  send_to_bank_account:
+    method: post
+    path: /api/transfers/initiate
+  send_to_upi_id:
+    method: post
+    path: /api/transfers/initiate
+  status:
+    method: get
+    path: /api/transfers/status/%{reference_number}
