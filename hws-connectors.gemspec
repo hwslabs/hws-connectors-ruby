@@ -1,7 +1,8 @@
+require_relative 'lib/hws-connectors'
 
 Gem::Specification.new do |spec|
   spec.name          = 'hws-connectors'
-  spec.version       = '0.1.0'
+  spec.version       = Hws::Connectors::VERSION
   spec.authors       = ['Hypto Engineering Team']
   spec.email         = ['engineering@hypto.in']
 
