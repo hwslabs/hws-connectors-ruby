@@ -14,7 +14,7 @@ gem 'hws-connectors'
 
 And then execute:
 
-    $ bundle
+    $ bundle install
 
 Or install it yourself as:
 
@@ -23,6 +23,25 @@ Or install it yourself as:
 ## Usage
 
 TODO: Write usage instructions here
+
+```ruby
+Hws::Connectors.configure do |config|
+  config.logger = Rails.logger
+  config.root_dir = Rails.root
+  config.options = { 'skip_logging' => %w(get) }
+end
+
+$hypto_va_client = Hws::Connectors::Hypto::VirtualAccount.new({
+                                                                'api_token' => "<HYPTO_API_TOKEN>",
+                                                                'webhook_auth' => "<HYPTO_WEBHOOK_AUTH>"
+                                                              })
+
+# Create VirtualAccount
+$hypto_va_client.create({ 'reference_number' => 'REF123' })
+
+# Validate Credit VirtualAccount Webhook
+$hypto_va_client.valid_webhook?(request.headers['Authorization'])
+```
 
 ## Development
 

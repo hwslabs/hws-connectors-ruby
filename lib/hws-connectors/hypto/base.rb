@@ -23,9 +23,6 @@ class Hws::Connectors::Hypto < Hws::Connectors
       Hws::Connectors.logger.debug "===== #{_class}.#{_method} - Response: #{resp} =====" if Hws::Connectors.logging?(end_point['method'])
       return JSON.parse(resp)
     rescue => e
-      puts e.message
-      puts e.class
-
       error = e.try(:response).try(:body)
       Hws::Connectors.logger.error "===== #{_class}.#{_method} - Error: #{error} ====="
       error = JSON.parse(error) if error.present?
