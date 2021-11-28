@@ -3,34 +3,29 @@ module Hws
     VERSION = '0.1.0'
     ALLOWED_ACTION_CLASSES = [String, Symbol].freeze
 
+    require_relative 'hws-connectors/exception'
+    include Hws::Connectors::Exception
     require_relative 'hws-connectors/helper'
     include Hws::Connectors::Helper
 
     option :logger
     option :root_dir
+    option :options
 
     class << self
       def configure
         yield self
+        self
       end
 
-      def execute_action action, *args
-        return nil unless ALLOWED_ACTION_CLASSES.include?(action.class)
-
-        action = action.to_sym
-        return nil unless self.methods.include?(action)
-
-        self.send(action, *args)
+      def logging? _method
+        !options['skip_logging'].to_a.include?(_method.to_s)
       end
-    end
-
-    def args
-      method(__method__).parameters.inject({}) { |res, name| res[name.last] = binding.local_variable_get(name.last); res }
     end
   end
 end
 
+require 'rest-client'
+require 'yaml'
 require_relative 'hws-connectors/hypto/base'
-require_relative 'hws-connectors/hypto/payout'
-require_relative 'hws-connectors/yesbank/base'
-require_relative 'hws-connectors/yesbank/payout'
+require_relative 'hws-connectors/hypto/virtual_account/base'
