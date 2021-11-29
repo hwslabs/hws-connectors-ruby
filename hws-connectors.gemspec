@@ -1,4 +1,6 @@
-require_relative 'lib/hws-connectors'
+lib = File.expand_path('../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require 'hws-connectors'
 
 Gem::Specification.new do |spec|
   spec.name          = 'hws-connectors'
@@ -6,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Hypto Engineering Team']
   spec.email         = ['engineering@hypto.in']
 
-  spec.summary       = 'Financial Primitive - Connector'
-  spec.description   = 'Financial Primitive - Connector'
-  spec.homepage      = 'https://www.hypto.in'
+  spec.summary = 'Financial Primitive - Connector'
+  spec.description = 'Financial Primitive - Connector'
+  spec.homepage = 'https://www.hypto.in'
   spec.license       = 'MIT'
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'

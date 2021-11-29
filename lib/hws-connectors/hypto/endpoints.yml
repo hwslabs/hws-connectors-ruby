@@ -32,3 +32,14 @@ Hws::Connectors::Hypto::VirtualAccount:
   statement:
     method: get
     path: /api/virtual_accounts/transactions
+
+Hws::Connectors::Hypto::Payout:
+  send_to_bank_account:
+    method: post
+    path: /api/transfers/initiate
+  send_to_upi_id:
+    method: post
+    path: /api/transfers/initiate
+  status:
+    method: get
+    path: /api/transfers/status/%{reference_number}
