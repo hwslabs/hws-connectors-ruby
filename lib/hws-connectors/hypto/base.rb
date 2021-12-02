@@ -2,7 +2,7 @@ require 'yaml'
 require 'rest-client'
 
 class Hws::Connectors::Hypto < Hws::Connectors
-  NAME = 'hypto'
+  NAME = 'hypto'.freeze
   END_POINTS = ::YAML.load_file(File.join(__dir__, 'endpoints.yml')).freeze
 
   def initialize(options = {})
@@ -12,20 +12,20 @@ class Hws::Connectors::Hypto < Hws::Connectors
 
   protected
 
-  def initiate_request(_method, payload = {})
+  def initiate_request(method, payload = {})
     begin
       _class = self.class.name
-      Hws::Connectors.logger.debug "===== #{_class}.#{_method} - args: #{payload} ====="
+      Hws::Connectors.logger.debug "===== #{_class}.#{method} - args: #{payload} ====="
 
-      end_point = END_POINTS[_class][_method.to_s].clone
+      end_point = END_POINTS[_class][method.to_s].clone
       end_point['path'] = end_point['path'] % payload if end_point['path'].include?('%')
 
       resp = RestClient::Request.execute(url: "#{@base_url}#{end_point['path']}", method: end_point['method'], payload: payload.to_json, headers: headers).body
-      Hws::Connectors.logger.debug "===== #{_class}.#{_method} - Response: #{resp} =====" if Hws::Connectors.logging?(end_point['method'])
+      Hws::Connectors.logger.debug "===== #{_class}.#{method} - Response: #{resp} =====" if Hws::Connectors.logging?(end_point['method'])
       return JSON.parse(resp)
     rescue => e
       error = e.try(:response).try(:body)
-      Hws::Connectors.logger.error "===== #{_class}.#{_method} - Error: #{error} ====="
+      Hws::Connectors.logger.error "===== #{_class}.#{method} - Error: #{error} ====="
       error = JSON.parse(error) if error.present?
 
       case e.class.name

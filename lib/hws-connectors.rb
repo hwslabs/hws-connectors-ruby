@@ -1,6 +1,6 @@
 module Hws
   class Connectors
-    VERSION = '0.1.0'
+    VERSION = '0.1.0'.freeze
 
     require 'hws-connectors/exception'
     include Hws::Connectors::Exception
@@ -17,11 +17,12 @@ module Hws
         self
       end
 
-      def logging?(_method)
-        !options['skip_logging'].to_a.include?(_method.to_s)
+      def logging?(method)
+        !options['skip_logging'].to_a.include?(method.to_s)
       end
     end
   end
 end
 
+require 'hws-connectors/dto/base'
 require 'hws-connectors/hypto/base'
