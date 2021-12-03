@@ -1,6 +1,3 @@
-module Hws::Connectors::Dto::Payout
-end
-
 class Hws::Connectors::Dto::Beneficiary
   attr_accessor :name, :account_number, :account_ifsc, :upi_id, :note
 
@@ -13,7 +10,5 @@ class Hws::Connectors::Dto::Beneficiary
   end
 end
 
-require 'hws-connectors/dto/payout/send_to_bank_account_request'
-require 'hws-connectors/dto/payout/send_to_bank_account_response'
-require 'hws-connectors/dto/payout/send_to_upi_id_request'
-require 'hws-connectors/dto/payout/send_to_upi_id_response'
+require 'hws-connectors/dto/payout/payout_request'
+require 'hws-connectors/dto/payout/payout_response'

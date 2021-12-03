@@ -31,16 +31,18 @@ Hws::Connectors.configure do |config|
   config.options = { 'skip_logging' => %w(get) }
 end
 
-$hypto_va_client = Hws::Connectors::Hypto::VirtualAccount.new({
-                                                                'api_token' => "<HYPTO_API_TOKEN>",
-                                                                'webhook_auth' => "<HYPTO_WEBHOOK_AUTH>"
-                                                              })
+$hypto_payout_client = Hws::Connectors::Hypto::Payout
+  .new({ 'api_token' => "<HYPTO_API_TOKEN>", 'env' => 'development | production' })
 
-# Create VirtualAccount
-$hypto_va_client.create({ 'reference_number' => 'REF123' })
+beneficiary = Hws::Connectors::Dto::Beneficiary.new(name: 'Logesh', account_number: '12345678', account_ifsc: 'HDFC0001234', note: 'Testing')
+request = Hws::Connectors::Dto::PayoutRequest.new(beneficiary: beneficiary, payment_type: 'IMPS', amount: 1)
+resp = $hypto_payout_client.send_to_bank_account(request)
+$hypto_payout_client.status(reference_number: resp.reference_number)
 
-# Validate Credit VirtualAccount Webhook
-$hypto_va_client.valid_webhook?(request.headers['Authorization'])
+beneficiary = Hws::Connectors::Dto::Beneficiary.new(name: 'Logesh', upi_id: 'logesh@yesbank', note: 'Testing')
+request = Hws::Connectors::Dto::PayoutRequest.new(beneficiary: beneficiary, payment_type: 'UPI', amount: 1)
+resp = $hypto_payout_client.send_to_upi_id(request)
+$hypto_payout_client.status(reference_number: resp.reference_number)
 ```
 
 ## Development

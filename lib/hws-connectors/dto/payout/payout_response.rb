@@ -1,6 +1,4 @@
-class Hws::Connectors::Dto::SendToBankAccountResponse < Hws::Connectors::Response
-  include Hws::Connectors::Dto::Payout
-
+class Hws::Connectors::Dto::PayoutResponse < Hws::Connectors::Response
   attr_accessor :reference_number, :account_holder, :amount, :payment_type, :beneficiary
   attr_accessor :txn_time, :status, :bank_ref_num
 

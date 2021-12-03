@@ -7,7 +7,7 @@ class Hws::Connectors::Hypto < Hws::Connectors
 
   def initialize(options = {})
     @api_token = options['api_token']
-    @base_url = "https://partners.hypto#{'.co' if options['env'].to_sym != :production}.in"
+    @base_url = "https://partners.hypto#{'.co' if options['env'].try(:to_sym) != :production}.in"
   end
 
   protected
