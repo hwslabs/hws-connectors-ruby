@@ -1,7 +1,7 @@
 module Hws::Connectors::Exception
-  attr_reader :reason
-
   class Error < StandardError
+    attr_accessor :reason
+
     def initialize(err = nil)
       case err.class.name
       when 'Hash'
