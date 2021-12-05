@@ -1,2 +1,2 @@
-require 'hws-connectors/dto/virtual_account/create_request'
-require 'hws-connectors/dto/virtual_account/create_response'
+require 'hws-connectors/dto/virtual_account/virtual_account_request'
+require 'hws-connectors/dto/virtual_account/virtual_account_response'

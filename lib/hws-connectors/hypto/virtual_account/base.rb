@@ -6,8 +6,8 @@ class Hws::Connectors::Hypto::VirtualAccount < Hws::Connectors::Hypto
   # require_relative 'transaction'
   # include Transaction
 
-  # @param [Types::CreateVirtualAccountRequest] request
-  # @return [Types::CreateVirtualAccountResponse]
+  # @param [Types::VirtualAccountRequest] request
+  # @return [Types::VirtualAccountResponse]
   def create(request)
     payload = { reference_number: request.reference_number, settle_to: request.meta[:settle_to], parent_type: request.meta[:parent_type],
                 parent_id: request.meta[:parent_id], link_upi: request.meta[:link_upi], upi_name: request.meta[:upi_name],
@@ -24,7 +24,7 @@ class Hws::Connectors::Hypto::VirtualAccount < Hws::Connectors::Hypto
       remitters << Hws::Connectors::Dto::Remitter.new(beneficiary: wl_bene_data, created_at: wl_rmtr['created_at'], updated_at: wl_rmtr['updated_at'])
     end
 
-    Hws::Connectors::Dto::CreateVirtualAccountResponse
+    Hws::Connectors::Dto::VirtualAccountResponse
       .new(reference_number: resp_data['reference_number'], beneficiary: beneficiary, remitters: remitters, status: resp_data['status'],
            balance: resp_data['account_balance'], message: resp['message'], meta: resp_data.slice(*META_RESPONSES))
   end

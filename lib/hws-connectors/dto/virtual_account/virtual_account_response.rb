@@ -1,4 +1,4 @@
-class Hws::Connectors::Dto::CreateVirtualAccountResponse < Hws::Connectors::Response
+class Hws::Connectors::Dto::VirtualAccountResponse < Hws::Connectors::Response
   attr_accessor :reference_number
 
   def initialize(reference_number:, beneficiary:, remitters: [], status: nil, balance: nil, message: nil, meta: {})
