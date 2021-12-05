@@ -14,7 +14,7 @@ class Hws::Connectors::Hypto::VirtualAccount < Hws::Connectors::Hypto
                 whitelisted_remitters: request.remitters.map { |remitter| { number: remitter.beneficiary.account_number, ifsc: remitter.beneficiary.account_ifsc } },
                 link_upi: request.meta[:link_upi], upi_name: request.meta[:upi_name] }
     resp = initiate_request(__method__, payload)
-    to_response(resp['data']['virtual_account'])
+    to_response(resp['data']['virtual_account'], resp['message'])
   end
 
   # @param [Types::String] reference_number
@@ -22,7 +22,7 @@ class Hws::Connectors::Hypto::VirtualAccount < Hws::Connectors::Hypto
   def fetch(reference_number:)
     payload = { id: reference_number }
     resp = initiate_request(__method__, payload)
-    to_response(resp['data'])
+    to_response(resp['data'], resp['message'])
   end
 
   # @param [Types::VirtualAccountRequest] request
@@ -31,7 +31,7 @@ class Hws::Connectors::Hypto::VirtualAccount < Hws::Connectors::Hypto
     payload = { id: request.meta[:id], reference_number: request.reference_number, udf1: request.meta[:udf1], udf2: request.meta[:udf2], udf3: request.meta[:udf3],
                 whitelisted_remitters: request.remitters.map { |remitter| { number: remitter.beneficiary.account_number, ifsc: remitter.beneficiary.account_ifsc } } }
     resp = initiate_request(__method__, payload)
-    to_response(resp['data']['virtual_account'])
+    to_response(resp['data']['virtual_account'], resp['message'])
   end
 
   # @param [Types::String] reference_number
@@ -39,7 +39,7 @@ class Hws::Connectors::Hypto::VirtualAccount < Hws::Connectors::Hypto
   def activate(reference_number:)
     payload = { id: reference_number }
     resp = initiate_request(__method__, payload)
-    to_response(resp['data'])
+    to_response(resp['data'], resp['message'])
   end
 
   # @param [Types::String] reference_number
@@ -47,7 +47,7 @@ class Hws::Connectors::Hypto::VirtualAccount < Hws::Connectors::Hypto
   def deactivate(reference_number:)
     payload = { id: reference_number }
     resp = initiate_request(__method__, payload)
-    to_response(resp['data'])
+    to_response(resp['data'], resp['message'])
   end
 
   def list(payload = {})
@@ -62,7 +62,7 @@ class Hws::Connectors::Hypto::VirtualAccount < Hws::Connectors::Hypto
 
   private
 
-  def to_response resp_data
+  def to_response(resp_data, message)
     resp_account_data = resp_data['details'][0]
     beneficiary = Hws::Connectors::Dto::Beneficiary.new(account_number: resp_account_data['account_number'], account_ifsc: resp_account_data['account_ifsc'])
 
@@ -74,6 +74,6 @@ class Hws::Connectors::Hypto::VirtualAccount < Hws::Connectors::Hypto
 
     Hws::Connectors::Dto::VirtualAccountResponse
       .new(reference_number: resp_data['reference_number'], beneficiary: beneficiary, remitters: remitters, status: resp_data['status'],
-           balance: resp_data['account_balance'], message: resp['message'], meta: resp_data.slice(*META_RESPONSES))
+           balance: resp_data['account_balance'], message: message, meta: resp_data.slice(*META_RESPONSES))
   end
 end
