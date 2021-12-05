@@ -3,6 +3,6 @@ class Hws::Connectors::Request < Hws::Connectors
 
   def initialize(reference_number: nil, meta: {})
     @reference_number = reference_number
-    @meta = meta.try(:to_sym)
+    @meta = meta.to_h.transform_keys { |key| key.to_sym }
   end
 end
