@@ -5,7 +5,7 @@ class Hws::Connectors::Hypto::Payout < Hws::Connectors::Hypto
 
   # @param [Types::PayoutRequest] request
   # @return [Types::PayoutResponse]
-  def send_to_bank_account(request)
+  def send_to_bank_account(request:)
     beneficiary = request.beneficiary
     payload = { reference_number: request.reference_number, number: beneficiary.account_number, ifsc: beneficiary.account_ifsc, amount: request.amount,
                 payment_type: request.payment_type, note: beneficiary.note, beneficiary_name: beneficiary.name, udf1: request.meta['udf1'],
@@ -23,7 +23,7 @@ class Hws::Connectors::Hypto::Payout < Hws::Connectors::Hypto
 
   # @param [Types::PayoutRequest] request
   # @return [Types::PayoutResponse]
-  def send_to_upi_id(request)
+  def send_to_upi_id(request:)
     beneficiary = request.beneficiary
     payload = { reference_number: request.reference_number, upi_id: beneficiary.upi_id, amount: request.amount, payment_type: 'UPI',
                 note: beneficiary.note, beneficiary_name: beneficiary.name, udf1: request.meta['udf1'],
