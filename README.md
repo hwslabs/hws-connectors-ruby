@@ -66,7 +66,7 @@ resp = $hypto_va_client.deactivate(reference_number: 139856)
 resp = $hypto_va_client.fetch(reference_number: 139856)
 ```
 
-#### Hypto::VirtualAccount::Payout
+#### Payout
 
 ```ruby
 beneficiary = Hws::Connectors::Dto::Beneficiary.new(name: 'Logesh', account_number: '12345678', account_ifsc: 'HDFC0005322', note: 'Connector testing')
