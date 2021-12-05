@@ -1,7 +1,7 @@
 class Hws::Connectors::Dto::VirtualAccountRequest < Hws::Connectors::Request
   attr_accessor :remitters
 
-  def initialize(reference_number:, remitters: [], meta: {})
+  def initialize(remitters: [], reference_number:, meta: {})
     @remitters = remitters
     super(reference_number: reference_number, meta: meta)
   end

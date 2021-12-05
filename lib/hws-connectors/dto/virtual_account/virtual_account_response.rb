@@ -1,5 +1,5 @@
 class Hws::Connectors::Dto::VirtualAccountResponse < Hws::Connectors::Response
-  attr_accessor :reference_number
+  attr_accessor :reference_number, :beneficiary, :remitters, :status, :balance
 
   def initialize(reference_number:, beneficiary:, remitters: [], status: nil, balance: nil, message: nil, meta: {})
     @reference_number = reference_number

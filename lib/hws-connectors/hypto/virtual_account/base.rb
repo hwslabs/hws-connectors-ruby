@@ -3,9 +3,6 @@ class Hws::Connectors::Hypto::VirtualAccount < Hws::Connectors::Hypto
 
   # @!group Actions
 
-  # require_relative 'transaction'
-  # include Transaction
-
   # @param [Types::VirtualAccountRequest] request
   # @return [Types::VirtualAccountResponse]
   def create(request:)
@@ -59,6 +56,9 @@ class Hws::Connectors::Hypto::VirtualAccount < Hws::Connectors::Hypto
     # TODO: Create models for request & response
     initiate_request(__method__, payload)
   end
+
+  require_relative 'transaction'
+  include Transaction
 
   private
 
