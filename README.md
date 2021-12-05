@@ -22,34 +22,72 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### Connector Configuration
 
 ```ruby
 Hws::Connectors.configure do |config|
   config.logger = Rails.logger
-  config.root_dir = Rails.root
-  config.options = { 'skip_logging' => %w(get) }
+  config.options = { skip_logging: %w(get) }
 end
+```
 
-$hypto_payout_client = Hws::Connectors::Hypto::Payout
-  .new({ 'api_token' => "<HYPTO_API_TOKEN>", 'env' => 'development | production' })
+### Hypto::Payout
 
-beneficiary = Hws::Connectors::Dto::Beneficiary.new(name: 'Logesh', account_number: '12345678', account_ifsc: 'HDFC0001234', note: 'Testing')
+```ruby
+CLIENT_INFO = { 'api_token' => "<HYPTO_API_TOKEN>", 'env' => 'development | production' }
+$hypto_payout_client = Hws::Connectors::Hypto::Payout.new(CLIENT_INFO)
+
+beneficiary = Hws::Connectors::Dto::Beneficiary.new(name: 'Logesh', account_number: '12345678', account_ifsc: 'HDFC0005322', note: 'Connector testing')
 request = Hws::Connectors::Dto::PayoutRequest.new(beneficiary: beneficiary, payment_type: 'IMPS', amount: 1)
-resp = $hypto_payout_client.send_to_bank_account(request)
-$hypto_payout_client.status(reference_number: resp.reference_number)
+resp = $hypto_payout_client.send_to_bank_account(request: request)
 
-beneficiary = Hws::Connectors::Dto::Beneficiary.new(name: 'Logesh', upi_id: 'logesh@yesbank', note: 'Testing')
+beneficiary = Hws::Connectors::Dto::Beneficiary.new(name: 'Logesh', upi_id: 'ddlogesh@okhdfcbank', note: 'Connector testing')
 request = Hws::Connectors::Dto::PayoutRequest.new(beneficiary: beneficiary, payment_type: 'UPI', amount: 1)
-resp = $hypto_payout_client.send_to_upi_id(request)
-$hypto_payout_client.status(reference_number: resp.reference_number)
+resp = $hypto_payout_client.send_to_upi_id(request: request)
+
+resp = $hypto_payout_client.status(reference_number: 'reference_number')
+```
+
+### Hypto::VirtualAccount
+
+```ruby
+$hypto_va_client = Hws::Connectors::Hypto::VirtualAccount.new(CLIENT_INFO)
+
+request = Hws::Connectors::Dto::VirtualAccountRequest.new(reference_number: 'REF123', meta: { settle_to: 'SELF', parent_type: 'PARTNER' })
+resp = $hypto_va_client.create(request: request)
+
+request = Hws::Connectors::Dto::VirtualAccountRequest.new(reference_number: 'REF139856', meta: { id: 139856 })
+resp = $hypto_va_client.update(request: request)
+
+resp = $hypto_va_client.activate(reference_number: 139856)
+
+resp = $hypto_va_client.deactivate(reference_number: 139856)
+
+resp = $hypto_va_client.fetch(reference_number: 139856)
+```
+
+#### Hypto::VirtualAccount::Payout
+
+```ruby
+beneficiary = Hws::Connectors::Dto::Beneficiary.new(name: 'Logesh', account_number: '12345678', account_ifsc: 'HDFC0005322', note: 'Connector testing')
+request = Hws::Connectors::Dto::PayoutRequest.new(beneficiary: beneficiary, payment_type: 'IMPS', amount: 1, meta: { va_id: 139856 })
+resp = $hypto_va_client.send_to_bank_account(request: request)
+
+beneficiary = Hws::Connectors::Dto::Beneficiary.new(name: 'Logesh', upi_id: 'ddlogesh@okhdfcbank', note: 'Connector testing')
+request = Hws::Connectors::Dto::PayoutRequest.new(beneficiary: beneficiary, payment_type: 'UPI', amount: 1, meta: { va_id: 139856 })
+resp = $hypto_va_client.send_to_upi_id(request: request)
+
+resp = $hypto_va_client.status(reference_number: 'reference_number', va_id: 139856)
 ```
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive
+prompt that will allow you to experiment.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the
+version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version,
+push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
 ## Contributing
 

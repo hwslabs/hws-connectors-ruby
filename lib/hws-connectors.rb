@@ -8,7 +8,6 @@ module Hws
     include Hws::Connectors::Helper
 
     option :logger
-    option :root_dir
     option :options
 
     class << self
@@ -18,7 +17,7 @@ module Hws
       end
 
       def logging?(method)
-        !options['skip_logging'].to_a.include?(method.to_s)
+        !options[:skip_logging].to_a.include?(method.to_s)
       end
     end
   end
