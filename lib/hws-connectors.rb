@@ -7,8 +7,9 @@ module Hws
     require 'hws-connectors/helper'
     include Hws::Connectors::Helper
 
-    option :logger
+    option :logger, -> { ::Rails.logger }
     option :options
+    option :webhooks
 
     class << self
       def configure
@@ -23,5 +24,6 @@ module Hws
   end
 end
 
+require 'hws-connectors/engine'
 require 'hws-connectors/dto/base'
 require 'hws-connectors/hypto/base'

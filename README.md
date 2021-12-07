@@ -27,7 +27,12 @@ Or install it yourself as:
 ```ruby
 Hws::Connectors.configure do |config|
   config.logger = Rails.logger
-  config.options = { skip_logging: %w(get) }
+  config.options = { skip_logging: %w(get) },
+  config.webhooks = {
+    'payouts' => {
+      'hypto' => -> (response) { puts response.inspect }
+    }
+  }
 end
 ```
 
