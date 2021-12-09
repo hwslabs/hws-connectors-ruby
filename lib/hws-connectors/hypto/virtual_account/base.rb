@@ -7,7 +7,7 @@ class Hws::Connectors::Hypto::VirtualAccount < Hws::Connectors::Hypto
   # @return [Types::VirtualAccountResponse]
   def create(request:)
     payload = { reference_number: request.reference_number, udf1: request.meta[:udf1], udf2: request.meta[:udf2], udf3: request.meta[:udf3],
-                settle_to: request.meta[:settle_to], parent_type: request.meta[:parent_type], parent_id: request.meta[:parent_id],
+                settle_to: request.meta[:settle_to] || 'PARENT', parent_type: request.meta[:parent_type] || 'PARTNER', parent_id: request.meta[:parent_id],
                 whitelisted_remitters: request.remitters.map { |remitter| { number: remitter.beneficiary.account_number, ifsc: remitter.beneficiary.account_ifsc } },
                 link_upi: request.meta[:link_upi], upi_name: request.meta[:upi_name] }
     resp = initiate_request(__method__, payload)
@@ -73,7 +73,7 @@ class Hws::Connectors::Hypto::VirtualAccount < Hws::Connectors::Hypto
     end
 
     Hws::Connectors::Dto::VirtualAccountResponse
-      .new(reference_number: resp_data['reference_number'], beneficiary: beneficiary, remitters: remitters, status: resp_data['status'],
+      .new(id: resp_data['id'], reference_number: resp_data['reference_number'], beneficiary: beneficiary, remitters: remitters, status: resp_data['status'],
            balance: resp_data['account_balance'], message: message, meta: resp_data.slice(*META_RESPONSES))
   end
 end
