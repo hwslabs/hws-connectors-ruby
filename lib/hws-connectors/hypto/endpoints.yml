@@ -14,12 +14,6 @@ Hws::Connectors::Hypto::VirtualAccount:
   deactivate:
     method: post
     path: /api/virtual_accounts/%{id}/deactivate
-  list:
-    method: get
-    path: /api/virtual_accounts
-  search:
-    method: get
-    path: /api/virtual_accounts/search
   send_to_bank_account:
     method: post
     path: /api/virtual_accounts/%{id}/transfer
@@ -29,9 +23,6 @@ Hws::Connectors::Hypto::VirtualAccount:
   status:
     method: get
     path: /api/virtual_accounts/%{id}/transfer/%{reference_number}
-  statement:
-    method: get
-    path: /api/virtual_accounts/transactions
 
 Hws::Connectors::Hypto::Payout:
   send_to_bank_account:
