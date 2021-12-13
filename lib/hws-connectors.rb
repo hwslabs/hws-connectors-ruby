@@ -24,6 +24,7 @@ module Hws
   end
 end
 
+require 'hws-connectors/railtie'
 require 'hws-connectors/engine'
 require 'hws-connectors/dto/base'
 require 'hws-connectors/hypto/base'
