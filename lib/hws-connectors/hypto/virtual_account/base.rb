@@ -48,16 +48,6 @@ class Hws::Connectors::Hypto::VirtualAccount < Hws::Connectors::Hypto
     to_response(resp['data'], resp['message'])
   end
 
-  def list(payload = {})
-    # TODO: Create models for request & response
-    initiate_request(__method__, payload)
-  end
-
-  def search(payload = {})
-    # TODO: Create models for request & response
-    initiate_request(__method__, payload)
-  end
-
   require_relative 'transaction'
   include Transaction
 

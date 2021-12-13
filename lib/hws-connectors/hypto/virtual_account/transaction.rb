@@ -31,11 +31,6 @@ module Hws::Connectors::Hypto::VirtualAccount::Transaction
     to_txn_response(resp['data'], resp['message'])
   end
 
-  def statement(payload = {})
-    # TODO: Create models for request & response
-    initiate_request(__method__, payload)
-  end
-
   private
 
   def to_txn_response(resp_data, message)
