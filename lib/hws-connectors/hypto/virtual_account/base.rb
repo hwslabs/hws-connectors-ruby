@@ -7,9 +7,10 @@ class Hws::Connectors::Hypto::VirtualAccount < Hws::Connectors::Hypto
   # @return [Types::VirtualAccountResponse]
   def create(request:)
     payload = { reference_number: request.reference_number, udf1: request.meta[:udf1], udf2: request.meta[:udf2], udf3: request.meta[:udf3],
-                settle_to: request.meta[:settle_to], parent_type: request.meta[:parent_type], parent_id: request.meta[:parent_id],
-                whitelisted_remitters: request.remitters.map { |remitter| { number: remitter.beneficiary.account_number, ifsc: remitter.beneficiary.account_ifsc } },
-                link_upi: request.meta[:link_upi], upi_name: request.meta[:upi_name] }
+                parent_id: request.meta[:parent_id], link_upi: request.meta[:link_upi], upi_name: request.meta[:upi_name],
+                whitelisted_remitters: request.remitters.map { |remitter| { number: remitter.beneficiary.account_number, ifsc: remitter.beneficiary.account_ifsc } } }
+    payload[:settle_to] = request.meta[:settle_to] if request.meta[:settle_to].present?
+    payload[:parent_type] = request.meta[:parent_type] if request.meta[:parent_type].present?
     resp = initiate_request(__method__, payload)
     to_response(resp['data']['virtual_account'], resp['message'])
   end
