@@ -28,11 +28,14 @@ Or install it yourself as:
 Hws::Connectors.configure do |config|
   config.logger = Rails.logger
   config.options = { skip_logging: %w(get) },
-  config.webhooks = {
-    'payouts' => {
-      'hypto' => -> (response) { puts response.inspect }
+    config.webhooks = {
+      'payouts' => {
+        'hypto' => -> (response) { puts response.inspect }
+      },
+      'virtual_accounts' => {
+        'hypto' => -> (response) { puts response.inspect }
+      }
     }
-  }
 end
 ```
 
@@ -83,6 +86,13 @@ request = Hws::Connectors::Dto::PayoutRequest.new(beneficiary: beneficiary, paym
 resp = $hypto_va_client.send_to_upi_id(request: request)
 
 resp = $hypto_va_client.status(reference_number: 'reference_number', va_id: 139856)
+```
+
+#### Webhooks
+
+```
+POST : {{host}}/hws/connectors/payouts/hypto/callback
+POST : {{host}}/hws/connectors/virtual_accounts/hypto/notify
 ```
 
 ## Development
