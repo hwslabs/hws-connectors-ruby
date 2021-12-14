@@ -8,7 +8,7 @@ class Hws::Connectors::VirtualAccountsController < Hws::Connectors::WebhooksCont
                                                        note: params['rmtr_to_bene_note'], name: params['rmtr_full_name'])
 
     response = Hws::Connectors::Dto::CreditVirtualAccountResponse
-                 .new(credit_time: Time.strptime(params['credited_at'], '%Y-%m-%d %H:%M:%S'), beneficiary: beneficiary, remitter: remitter, amount: params['amount'],
+                 .new(credit_time: Time.strptime(params['credited_at'], '%Y-%m-%d %H:%M:%S'), beneficiary: beneficiary, remitter: remitter, amount: params['amount'].to_f,
                       payment_type: params['payment_type'], bank_ref_num: params['bank_ref_num'], meta: params.as_json.slice(*HYPTO_META_RESPONSES))
 
     Hws::Connectors.webhooks.to_h['virtual_accounts'].try(:call, response)
