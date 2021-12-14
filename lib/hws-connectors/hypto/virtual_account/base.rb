@@ -55,12 +55,11 @@ class Hws::Connectors::Hypto::VirtualAccount < Hws::Connectors::Hypto
 
   def to_response(resp_data, message)
     resp_account_data = resp_data['details'][0]
-    beneficiary = Hws::Connectors::Dto::Beneficiary.new(account_number: resp_account_data['account_number'], account_ifsc: resp_account_data['account_ifsc'])
+    beneficiary = Hws::Connectors::Dto::AccountDetail.new(account_number: resp_account_data['account_number'], account_ifsc: resp_account_data['account_ifsc'])
 
     remitters = []
     resp_data['whitelisted_remitters'].each do |wl_rmtr|
-      wl_bene_data = Hws::Connectors::Dto::Beneficiary.new(account_number: wl_rmtr['number'], account_ifsc: wl_rmtr['ifsc'])
-      remitters << Hws::Connectors::Dto::Remitter.new(beneficiary: wl_bene_data, created_at: wl_rmtr['created_at'], updated_at: wl_rmtr['updated_at'])
+      remitters << Hws::Connectors::Dto::AccountDetail.new(account_number: wl_rmtr['number'], account_ifsc: wl_rmtr['ifsc'], created_at: wl_rmtr['created_at'], updated_at: wl_rmtr['updated_at'])
     end
 
     Hws::Connectors::Dto::VirtualAccountResponse

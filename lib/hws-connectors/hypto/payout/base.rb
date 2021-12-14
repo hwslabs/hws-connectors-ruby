@@ -36,7 +36,7 @@ class Hws::Connectors::Hypto::Payout < Hws::Connectors::Hypto
   private
 
   def to_response(resp_data, message)
-    beneficiary = Hws::Connectors::Dto::Beneficiary
+    beneficiary = Hws::Connectors::Dto::AccountDetail
                     .new(name: resp_data['transfer_beneficiary_name'], account_number: resp_data['transfer_account_number'],
                          account_ifsc: resp_data['transfer_account_ifsc'], note: resp_data['transfer_note'])
     Hws::Connectors::Dto::PayoutResponse

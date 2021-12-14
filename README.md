@@ -52,12 +52,12 @@ CLIENT_INFO = { 'api_token' => "<HYPTO_API_TOKEN>", 'env' => 'development | prod
 $hypto_payout_client = Hws::Connectors::Hypto::Payout.new(CLIENT_INFO)
 
 # Send to bank account
-beneficiary = Hws::Connectors::Dto::Beneficiary.new(name: 'Logesh', account_number: '12345678', account_ifsc: 'HDFC0005322', note: 'Connector testing')
+beneficiary = Hws::Connectors::Dto::AccountDetail.new(name: 'Logesh', account_number: '12345678', account_ifsc: 'HDFC0005322', note: 'Connector testing')
 request = Hws::Connectors::Dto::PayoutRequest.new(beneficiary: beneficiary, payment_type: 'IMPS', amount: 1)
 resp = $hypto_payout_client.send_to_bank_account(request: request)
 
 # Send to Upi Id
-beneficiary = Hws::Connectors::Dto::Beneficiary.new(name: 'Logesh', upi_id: 'ddlogesh@okhdfcbank', note: 'Connector testing')
+beneficiary = Hws::Connectors::Dto::AccountDetail.new(name: 'Logesh', upi_id: 'ddlogesh@okhdfcbank', note: 'Connector testing')
 request = Hws::Connectors::Dto::PayoutRequest.new(beneficiary: beneficiary, payment_type: 'UPI', amount: 1)
 resp = $hypto_payout_client.send_to_upi_id(request: request)
 
@@ -93,12 +93,12 @@ resp = $hypto_va_client.fetch(reference_number: 139856)
 
 ```ruby
 # Send to bank account
-beneficiary = Hws::Connectors::Dto::Beneficiary.new(name: 'Logesh', account_number: '12345678', account_ifsc: 'HDFC0005322', note: 'Connector testing')
+beneficiary = Hws::Connectors::Dto::AccountDetail.new(name: 'Logesh', account_number: '12345678', account_ifsc: 'HDFC0005322', note: 'Connector testing')
 request = Hws::Connectors::Dto::PayoutRequest.new(beneficiary: beneficiary, payment_type: 'IMPS', amount: 1, meta: { va_id: 139856 })
 resp = $hypto_va_client.send_to_bank_account(request: request)
 
 # Send to Upi Id
-beneficiary = Hws::Connectors::Dto::Beneficiary.new(name: 'Logesh', upi_id: 'ddlogesh@okhdfcbank', note: 'Connector testing')
+beneficiary = Hws::Connectors::Dto::AccountDetail.new(name: 'Logesh', upi_id: 'ddlogesh@okhdfcbank', note: 'Connector testing')
 request = Hws::Connectors::Dto::PayoutRequest.new(beneficiary: beneficiary, payment_type: 'UPI', amount: 1, meta: { va_id: 139856 })
 resp = $hypto_va_client.send_to_upi_id(request: request)
 
