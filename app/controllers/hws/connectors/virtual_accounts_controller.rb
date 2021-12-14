@@ -1,5 +1,5 @@
 class Hws::Connectors::VirtualAccountsController < Hws::Connectors::WebhooksController
-  HYPTO_META_RESPONSES = %w(id va_closing_balance va_settler_id charges_gst settled_amount txn_time created_at hypto_va_id va_wallet_amount)
+  HYPTO_META_RESPONSES = META_RESPONSES + %w(id va_closing_balance va_settler_id charges_gst settled_amount txn_time created_at hypto_va_id va_wallet_amount va_lien_amount)
 
   def notify
     Hws::Connectors.logger.debug "===== Hws::Connectors::VirtualAccountsController.notify - Payload: #{params.inspect} ====="

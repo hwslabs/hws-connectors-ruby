@@ -1,5 +1,6 @@
 class Hws::Connectors::PayoutsController < Hws::Connectors::WebhooksController
-  HYPTO_META_RESPONSES = %w(id txn_time created_at txn_type charges_gst settled_amount connected_banking udf1 udf2 udf3 initiated_account_ifsc va_closing_balance hypto_va_id va_wallet_amount va_settler_id)
+  HYPTO_META_RESPONSES = META_RESPONSES + %w(id txn_time created_at txn_type charges_gst settled_amount connected_banking udf1 udf2 udf3 initiated_account_ifsc
+va_closing_balance hypto_va_id va_wallet_amount va_settler_id)
 
   def callback
     Hws::Connectors.logger.debug "===== Hws::Connectors::PayoutsController.callback - Payload: #{params.inspect} ====="

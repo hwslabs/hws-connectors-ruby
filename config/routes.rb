@@ -2,10 +2,10 @@ Rails.application.routes.draw do
   namespace :hws do
     namespace :connectors do
       resource :payouts, only: :none do
-        collection { post ':bank/callback', action: :callback }
+        collection { post ':entity/callback', action: :callback }
       end
       resource :virtual_accounts, only: :none do
-        collection { post ':bank/notify', action: :notify }
+        collection { post ':entity/notify', action: :notify }
       end
     end
   end
