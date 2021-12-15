@@ -7,7 +7,7 @@ module Hws
     require 'hws-connectors/helper'
     include Hws::Connectors::Helper
 
-    option :logger, -> { ::Rails.logger }
+    option :logger
     option :options
     option :webhooks
 

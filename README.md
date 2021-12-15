@@ -35,10 +35,10 @@ Hws::Connectors.configure do |config|
   config.options = { skip_logging: %w(get) },
     config.webhooks = {
       'payouts' => {
-        'hypto' => -> (response) { puts response.inspect }
+        'callback' => -> (entity, response) { puts "#{entity.inspect} - #{response.inspect}" },
       },
       'virtual_accounts' => {
-        'hypto' => -> (response) { puts response.inspect }
+        'notify' => -> (entity, response) { puts "#{entity.inspect} - #{response.inspect}" }
       }
     }
 end
