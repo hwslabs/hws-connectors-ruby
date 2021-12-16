@@ -123,6 +123,8 @@ POST : {{host}}/hws/connectors/virtual_accounts/hypto/notify
 
 ### Contributing
 
-We wish the **Fintech** community to come forward & contribute to this project for a good social cause, by sending us a pull request: may be a minor bug fix, bank integration, financial connectors or major improvements.
+We wish the **Fintech** community to come forward and contribute to this project, making the developer's life easier.
+
+Fork our project and send us a pull request: may be a minor bug fix, new bank integrations or financial connectors.
 
 **Every contribution is welcome!**
