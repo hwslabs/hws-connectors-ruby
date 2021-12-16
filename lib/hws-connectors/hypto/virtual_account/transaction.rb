@@ -1,8 +1,8 @@
 module Hws::Connectors::Hypto::VirtualAccount::Transaction
   TXN_META_RESPONSES = %w(id txn_time created_at txn_type charges_gst settled_amount closing_balance connected_banking transfer_udf1 transfer_udf2 transfer_udf3 transfer_initiated_account_ifsc hypto_va_id va_closing_balance va_wallet_amount)
 
-  # @param [Types::PayoutRequest] request
-  # @return [Types::PayoutResponse]
+  # @param [Dto::PayoutRequest] request
+  # @return [Dto::PayoutResponse]
   def send_to_bank_account(request:)
     beneficiary = request.beneficiary
     payload = { reference_number: request.reference_number, number: beneficiary.account_number, ifsc: beneficiary.account_ifsc, amount: request.amount,
@@ -12,8 +12,8 @@ module Hws::Connectors::Hypto::VirtualAccount::Transaction
     to_txn_response(resp['data'], resp['message'])
   end
 
-  # @param [Types::PayoutRequest] request
-  # @return [Types::PayoutResponse]
+  # @param [Dto::PayoutRequest] request
+  # @return [Dto::PayoutResponse]
   def send_to_upi_id(request:)
     beneficiary = request.beneficiary
     payload = { reference_number: request.reference_number, upi_id: beneficiary.upi_id, amount: request.amount, payment_type: 'UPI',
@@ -23,8 +23,8 @@ module Hws::Connectors::Hypto::VirtualAccount::Transaction
     to_txn_response(resp['data'], resp['message'])
   end
 
-  # @param [Types::String] reference_number
-  # @return [Types::PayoutResponse]
+  # @param [String] reference_number
+  # @return [Dto::PayoutResponse]
   def status(reference_number:, va_id: nil)
     payload = { reference_number: reference_number, id: va_id }
     resp = initiate_request(__method__, payload)
