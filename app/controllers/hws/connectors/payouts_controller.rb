@@ -10,7 +10,8 @@ va_closing_balance hypto_va_id va_wallet_amount va_settler_id)
     response = Hws::Connectors::Dto::PayoutResponse
                  .new(reference_number: params['reference_number'], beneficiary: beneficiary, account_holder: params['account_holder'],
                       amount: params['amount'].to_f, payment_type: params['payment_type'], status: params['status'],
-                      txn_time: Time.strptime(params['txn_time'], '%Y-%m-%d %H:%M:%S'), meta: params.as_json.slice(*HYPTO_META_RESPONSES))
+                      bank_ref_num: params['bank_ref_num'], txn_time: Time.strptime(params['txn_time'], '%Y-%m-%d %H:%M:%S'),
+                      meta: params.as_json.slice(*HYPTO_META_RESPONSES))
 
     render_response(response)
   end

@@ -42,6 +42,7 @@ class Hws::Connectors::Hypto::Payout < Hws::Connectors::Hypto
     Hws::Connectors::Dto::PayoutResponse
       .new(reference_number: resp_data['reference_number'], beneficiary: beneficiary, account_holder: resp_data['transfer_account_holder'],
            amount: resp_data['settled_amount'], payment_type: resp_data['payment_type'], status: resp_data['status'], message: message,
-           txn_time: Time.strptime(resp_data['txn_time'], '%Y-%m-%d %H:%M:%S'), meta: resp_data.slice(*META_RESPONSES))
+           bank_ref_num: resp_data['bank_ref_num'], txn_time: Time.strptime(resp_data['txn_time'], '%Y-%m-%d %H:%M:%S'),
+           meta: resp_data.slice(*META_RESPONSES))
   end
 end
