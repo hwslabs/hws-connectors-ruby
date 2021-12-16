@@ -4,8 +4,13 @@
 
 <p align="center">
   <a href="LICENSE.txt"><img alt="License" src="https://img.shields.io/github/license/hwslabs/hws-connectors-ruby"></a>
+  <a href="https://rubygems.org/gems/hws-connectors"><img alt="Ruby gem" src="http://img.shields.io/gem/v/hws-connectors.svg"></a>
   <a href="https://github.com/hwslabs/hws-connectors-ruby/pulls"><img alt="PRs Welcome" src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square"></a>
 </p>
+
+An Open Source Connector to integrate with any financial service providers like banks, fintechs, etc., providing a unified response across various providers.
+
+**NOTE**: _We are starting of with Hypto connectors & will be introducing the integrations of other financial service providers shortly._
 
 ### Installation
 
@@ -118,6 +123,6 @@ POST : {{host}}/hws/connectors/virtual_accounts/hypto/notify
 
 ### Contributing
 
-Fork our project and send us your pull request: may be a minor bug, extension or major improvements.
+We wish the **Fintech** community to come forward & contribute to this project for a good social cause, by sending us a pull request: may be a minor bug fix, bank integration, financial connectors or major improvements.
 
 **Every contribution is welcome!**
