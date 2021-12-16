@@ -3,8 +3,8 @@ class Hws::Connectors::Hypto::VirtualAccount < Hws::Connectors::Hypto
 
   # @!group Actions
 
-  # @param [Types::VirtualAccountRequest] request
-  # @return [Types::VirtualAccountResponse]
+  # @param [Dto::VirtualAccountRequest] request
+  # @return [Dto::VirtualAccountResponse]
   def create(request:)
     payload = { reference_number: request.reference_number, udf1: request.meta[:udf1], udf2: request.meta[:udf2], udf3: request.meta[:udf3],
                 parent_id: request.meta[:parent_id], link_upi: request.meta[:link_upi], upi_name: request.meta[:upi_name],
@@ -15,16 +15,16 @@ class Hws::Connectors::Hypto::VirtualAccount < Hws::Connectors::Hypto
     to_response(resp['data']['virtual_account'], resp['message'])
   end
 
-  # @param [Types::String] reference_number
-  # @return [Types::VirtualAccountResponse]
+  # @param [String] reference_number
+  # @return [Dto::VirtualAccountResponse]
   def fetch(reference_number:)
     payload = { id: reference_number }
     resp = initiate_request(__method__, payload)
     to_response(resp['data'], resp['message'])
   end
 
-  # @param [Types::VirtualAccountRequest] request
-  # @return [Types::VirtualAccountResponse]
+  # @param [Dto::VirtualAccountRequest] request
+  # @return [Dto::VirtualAccountResponse]
   def update(request:)
     payload = { id: request.meta[:id], reference_number: request.reference_number, udf1: request.meta[:udf1], udf2: request.meta[:udf2], udf3: request.meta[:udf3],
                 whitelisted_remitters: request.remitters.map { |remitter| { number: remitter.beneficiary.account_number, ifsc: remitter.beneficiary.account_ifsc } } }
@@ -32,16 +32,16 @@ class Hws::Connectors::Hypto::VirtualAccount < Hws::Connectors::Hypto
     to_response(resp['data']['virtual_account'], resp['message'])
   end
 
-  # @param [Types::String] reference_number
-  # @return [Types::VirtualAccountResponse]
+  # @param [String] reference_number
+  # @return [Dto::VirtualAccountResponse]
   def activate(reference_number:)
     payload = { id: reference_number }
     resp = initiate_request(__method__, payload)
     to_response(resp['data'], resp['message'])
   end
 
-  # @param [Types::String] reference_number
-  # @return [Types::VirtualAccountResponse]
+  # @param [String] reference_number
+  # @return [Dto::VirtualAccountResponse]
   def deactivate(reference_number:)
     payload = { id: reference_number }
     resp = initiate_request(__method__, payload)
