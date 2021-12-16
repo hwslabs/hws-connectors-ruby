@@ -8,7 +8,7 @@
   <a href="https://github.com/hwslabs/hws-connectors-ruby/pulls"><img alt="PRs Welcome" src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square"></a>
 </p>
 
-An Open Source Connector to integrate with any financial service providers like banks, fintechs, etc., providing a unified response across various providers.
+An Open Source Connector to integrate with any financial service providers like banks, fintech, etc., providing a unified response across various providers.
 
 **NOTE**: _We are starting of with Hypto connectors & will be introducing the integrations of other financial service providers shortly._
 

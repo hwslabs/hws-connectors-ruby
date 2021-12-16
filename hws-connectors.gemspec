@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.authors = ['Hypto Engineering Team']
   spec.email = ['engineering@hypto.in']
 
-  spec.summary = 'HWS Connector'
-  spec.description = 'Primitive for connecting to the financial services'
+  spec.summary = 'Hws Connectors'
+  spec.description = 'An Open Source Connector to integrate with any financial service providers like banks, fintech, etc., providing a unified response across various providers.'
   spec.homepage = 'https://github.com/hwslabs/hws-connectors-ruby'
   spec.license = 'MIT'
   spec.required_ruby_version = '>= 2.4.0'
