@@ -1,13 +1,21 @@
 require 'yaml'
 require 'rest-client'
 
-class Hws::Connectors::Hypto < Hws::Connectors
-  NAME = 'hypto'.freeze
+class Hws::Connectors::Yesbank < Hws::Connectors
+  NAME = 'yesbank'.freeze
   END_POINTS = ::YAML.load_file(File.join(__dir__, 'endpoints.yml')).freeze
+  P12_CONFIG =
 
   def initialize(options = {})
-    @api_token = options['api_token']
-    @base_url = "https://partners.hypto#{'.co' if options['env'].try(:to_sym) != :production}.in"
+    @auth_token = options['auth_token']
+    @client_id = options['client_id']
+    @client_secret = options['client_secret']
+    @customer_id = options['customer_id']
+    @debit_account_number = options['debit_account_number']
+    @certificate = OpenSSL::PKCS12.new(File.read(options['cert_file_path']), options['cert_file_password'])
+    @proxy_beneficiary_email = options['proxy_beneficiary_email']
+    @proxy_beneficiary_mobile = options['proxy_beneficiary_mobile']
+    @proxy_beneficiary_address = options['proxy_beneficiary_address']
     super()
   end
 
@@ -19,9 +27,8 @@ class Hws::Connectors::Hypto < Hws::Connectors
       Hws::Connectors.logger.debug "===== #{_class}.#{method} - args: #{payload} ====="
 
       end_point = END_POINTS[_class][method.to_s].clone
-      end_point['path'] = end_point['path'] % payload if end_point['path'].include?('%')
-
-      resp = RestClient::Request.execute(url: "#{@base_url}#{end_point['path']}", method: end_point['method'], payload: payload.to_json, headers: headers).body
+      resp = RestClient::Request.execute(url: "#{@base_url}#{end_point['path']}", method: end_point['method'], payload: payload.to_json, headers: headers,
+                                         ssl_client_cert: @certificate.certificate, ssl_client_key: @certificate.key, verify_ssl: OpenSSL::SSL::VERIFY_NONE).body
       Hws::Connectors.logger.debug "===== #{_class}.#{method} - Response: #{resp} =====" if Hws::Connectors.logging?(end_point['method'])
       return JSON.parse(resp)
     rescue => e
@@ -50,9 +57,9 @@ class Hws::Connectors::Hypto < Hws::Connectors
   private
 
   def headers
-    { 'Authorization' => @api_token, 'Content-Type' => 'application/json' }
+    { 'Content-Type' => 'application/json', 'Authorization' => "Basic #{@auth_token}", 'X-IBM-Client-Id' => @client_id,
+      'X-IBM-Client-Secret' => @client_secret }
   end
 end
 
-require_relative 'virtual_account/base'
 require_relative 'payout/base'

@@ -1,0 +1,10 @@
+Hws::Connectors::Yesbank::Payout:
+  send_to_bank_account:
+    method: post
+    path: /app/uat/fundtransfer2R/startTransfer
+  send_to_upi_id:
+    method: post
+    path: /app/uat/fundtransfer2R/startTransfer
+  status:
+    method: post
+    path: /app/uat/fundtransfer2R/getstatus
